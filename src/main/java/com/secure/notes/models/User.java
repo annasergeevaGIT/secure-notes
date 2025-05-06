@@ -49,7 +49,7 @@ public class User {   // Custom user implementation
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    private LocalDate credentiasExpiryDate;
+    private LocalDate credentialsExpiryDate;
     private LocalDate accountExpiryDate;
 
     private String twoFactorSecret;
@@ -64,10 +64,10 @@ public class User {   // Custom user implementation
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime creationDate;
+    private LocalDateTime createdDate;
 
     @UpdateTimestamp
-    private LocalDateTime updateDate;
+    private LocalDateTime updatedDate;
 
     public User(String userName, String email, String password) {
         this.userName = userName;
