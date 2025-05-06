@@ -1,6 +1,6 @@
 # Secure Notes Application
 
-Spring Security 6 Notes app with ReactJS, OAuth2, and JWT
+Spring Security Notes app with ReactJS, OAuth2, and JWT
 
 ## Technologies Used
 
