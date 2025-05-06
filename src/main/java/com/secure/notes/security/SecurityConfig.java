@@ -8,6 +8,7 @@ import com.secure.notes.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,14 +18,16 @@ import java.time.LocalDate;
 import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true) //enables pre/post annotations, secured annotations, and JSR-250 annotations
 public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) ->
-                requests.anyRequest().authenticated());
-                        //.requestMatchers("/contact").permitAll() // Allow access to /contact without authentication
-                        //.requestMatchers("/public/**").permitAll()  // bypass spring security
-                        //.requestMatchers("/admin/**").denyAll()
+        http.authorizeHttpRequests((requests) -> requests
+                .anyRequest().authenticated()
+                //.requestMatchers("/contact").permitAll() // Allow access to /contact without authentication
+                //.requestMatchers("/public/**").permitAll()  // bypass spring security
+                //.requestMatchers("/api/admin/**").hasRole("ADMIN") // Only allow access to /api/admin/** for users with ADMIN role
+        );
 
         //http.csrf(AbstractHttpConfigurer::disable);
         //http.formLogin(withDefaults());
